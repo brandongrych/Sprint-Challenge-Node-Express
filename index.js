@@ -17,7 +17,16 @@ server.use(express.json());
 server.use(logger);
  /*** ----------------ACTION---------------- ***/
 // GET
-
+server.get('/api/actions', (req, res) => {
+    actionDb.get()
+    .then(actions => {
+        return res.status(200).json(actions);
+    })
+    .catch(err => {
+        console.log(err);
+        return res.status(500).json(({error: "Error retrieving actions."}))
+    })
+})
 
 
 // PUT
@@ -35,7 +44,16 @@ server.use(logger);
 
  /*** ----------------PROJECT---------------- ***/
 // GET
-
+server.get('/api/projects', (req, res) => {
+    projectDb.get()
+    .then(projects => {
+        return res.status(200).json(projects);
+    })
+    .catch(err => {
+        console.log(err);
+        return res.status(500).json({error: "Error retrieving projects."})
+    })
+})
 
 
 // PUT
