@@ -1,0 +1,29 @@
+{
+    "name": "sprint-challenge-node-express",
+    "version": "1.0.0",
+    "description": "Lambda School - Node Express Sprint Challenge",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/brandongrych/Sprint-Challenge-Node-Express.git"
+    },
+    "author": "Brandon Grych",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "cors": "^2.8.5",
+        "knex": "^0.15.2",
+        "sqlite3": "^4.0.3"
+    },
+    "devDependencies": {
+        "nodemon": "^1.18.6"
+    },
+    "bugs": {
+        "url": "https://github.com/brandongrych/Sprint-Challenge-Node-Express/issues"
+    },
+    "homepage": "https://github.com/brandongrych/Sprint-Challenge-Node-Express#readme"
+}
