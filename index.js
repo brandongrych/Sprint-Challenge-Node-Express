@@ -30,7 +30,27 @@ server.get('/api/actions', (req, res) => {
 
 
 // PUT
-
+server.put('/api/actions/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const newAction = {
+        "description": req.body.description,
+        "notes": req.body.notes
+    }
+        actionDb.update(id, newAction)
+    .then(action => {
+        if(!action){
+            return res.status(404).json({error: "The specified action does not exist."})
+        } else if(!newAction.description || !newAction.notes){
+            return res.status(400).json({error: "Please include a description and notes."})
+        } else {
+            return res.status(200).json({action})
+        }
+    })
+    .catch(err => {
+        console.log(err);
+        return res.status(500).json({error: `An error occured while updating ${id}`})
+    })
+})
 
 
 // POST
@@ -74,7 +94,18 @@ server.post('/api/actions', (req, res) => {
 
 
 // DELETE
-
+server.delete('/api/actions/:id', (req, res) => {
+    const id = req.params.id;
+        actionDb.remove(id)
+    .then(reply => {
+        console.log(reply);
+        return res.status(200).json({message: "Action deleted."})
+    })
+    .catch(err => {
+        console.log(err);
+        return res.status(500).json({error: `An error occured while attempting to delete ${id}`})
+    })
+})
 
 
 
@@ -93,7 +124,28 @@ server.get('/api/projects', (req, res) => {
 
 
 // PUT
-
+server.put('/api/projects/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+        const newProject = {
+        "name": req.body.name,
+        "description": req.body.description
+    }
+        projectDb.update(id, newProject)
+    .then(project => {
+        if(!project){
+            return res.status(404).json({error: "The specified project does not exist."})
+        } else if (!newProject.name || !newProject.description){
+            return res.status(400).json({error: "Please include a name and description."})
+        } else {
+        console.log(project);
+        return res.status(200).json({message: "Project successfully updated."})
+        }
+    })
+    .catch(err => {
+        console.log(err);
+        return res.status(500).json({error: `An error occured while attempting to update Project ${id}`})
+    })
+})
 
 
 // POST
@@ -121,7 +173,18 @@ server.post('/api/projects', (req, res) => {
 
 
 // DELETE
-
+server.delete('/api/projects/:id', (req, res) => {
+    const id = req.params.id;
+        projectDb.remove(id)
+    .then(reply => {
+        console.log(reply);
+        return res.status(200).json({message: "Project deleted."})
+    })
+    .catch(err => {
+        console.log(err);
+        return res.status(500).json({error: `An error occured while attempting to delete ${id}`})
+    })
+})
 
 
 
