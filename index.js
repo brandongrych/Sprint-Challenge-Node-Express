@@ -109,7 +109,7 @@ server.delete('/api/actions/:id', (req, res) => {
 
 
 
- /*** ----------------PROJECT---------------- ***/
+ /*** ------------------PROJECT------------------ ***/
 // GET
 server.get('/api/projects', (req, res) => {
     projectDb.get()
