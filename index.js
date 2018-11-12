@@ -111,16 +111,22 @@ server.delete('/api/actions/:id', (req, res) => {
 
  /*** ------------------PROJECT------------------ ***/
 // GET
-server.get('/api/projects', (req, res) => {
-    projectDb.get()
-    .then(projects => {
-        return res.status(200).json(projects);
+server.get('/api/projects/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    projectDb.get(id)
+    .then(project => {
+        if(!project){
+            return res.status(404).json({error: `Project with ID ${id} does not exist.`})
+        } else {
+        return res.status(200).json({project})
+        }
     })
     .catch(err => {
         console.log(err);
-        return res.status(500).json({error: "Error retrieving projects."})
+        return res.status(500).json({error: `Error retrieving project ${id}`})
     })
 })
+
 
 
 // PUT
