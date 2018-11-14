@@ -16,7 +16,8 @@ server.use(express.json());
 }
 server.use(logger);
  /*** ----------------ACTION---------------- ***/
-// GET
+
+// GET ALL ACTIONS
 server.get('/api/actions', (req, res) => {
     actionDb.get()
     .then(actions => {
@@ -25,6 +26,24 @@ server.get('/api/actions', (req, res) => {
     .catch(err => {
         console.log(err);
         return res.status(500).json(({error: "Error retrieving actions."}))
+    })
+})
+
+
+// GET ACTION BY ID 
+server.get('/api/actions/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    actionDb.get(id)
+    .then(actions => {
+        if(!actions){
+            return res.status(404).json({error: `Action with ID ${id} does not exist.`})
+        } else {
+        return res.status(200).json({actions})
+        }
+    })
+    .catch(err => {
+        console.log(err);
+        return res.status(500).json({error: `Error retrieving action ${id}`})
     })
 })
 
@@ -110,7 +129,21 @@ server.delete('/api/actions/:id', (req, res) => {
 
 
  /*** ------------------PROJECT------------------ ***/
-// GET
+
+// GET ALL Projects
+server.get('/api/projects', (req, res) => {
+    projectDb.get()
+    .then(project => {
+        return res.status(200).json(project);
+    })
+    .catch(err => {
+        console.log(err);
+        return res.status(500).json(({error: "Error retrieving actions."}))
+    })
+})
+
+
+// GET BY ID
 server.get('/api/projects/:id', (req, res) => {
     const id = parseInt(req.params.id);
     projectDb.get(id)
